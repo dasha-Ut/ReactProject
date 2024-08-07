@@ -1,8 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tsconfigPaths from "vite-tsconfig-paths"
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vitest/config';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
-})
+  base: '/mastering-react/',
+  plugins: [react() as any, tsconfigPaths()],
+  server: {
+    open: true,
+    port: 3000,
+  },
+  test: {
+    globals: true,
+    css: false,
+    clearMocks: true,
+    environment: 'jsdom',
+    setupFiles: 'src/setupTests.ts',
+  },
+});
